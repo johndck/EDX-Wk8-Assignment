@@ -341,7 +341,7 @@ const fetchWeatherForecast = (locationDetails) => {
 
         // Loop through and check this in ful.
 
-        for (let i = 0; i <= 2; i++) {
+        for (let i = 0; i <= 1; i++) {
           // create the elements for each forecast item:
 
           let forecastTemp = $("<p>");
