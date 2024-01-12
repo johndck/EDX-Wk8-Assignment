@@ -91,31 +91,41 @@ const fetchWeatherForecast = (locationDetails) => {
         //console.log(forecast.length);
         // what is the current hour
         let currentHour = dayjs().hour();
+        console.log(currentHour);
         if (currentHour >= 9 && currentHour < 12) {
-          let day1Temp = forecast[i + 4].main.temp;
-          let day1Wind = forecast[i + 4].wind.speed;
-          let day1Humitidy = forecast[i + 4].main.humidity;
-          let day1icon = forecast[i + 4].weather[0].icon;
+          let day1Temp = forecast[4].main.temp;
+          let day1Wind = forecast[4].wind.speed;
+          let day1Humitidy = forecast[4].main.humidity;
+          let day1icon = forecast[4].weather[0].icon;
           // Day 2 data
-          let day2Temp = forecast[i + 12].main.temp;
-          let day2Wind = forecast[i + 12].wind.speed;
-          let day2Humitidy = forecast[i + 12].main.humidity;
-          let day2icon = forecast[i + 12].weather[0].icon;
+          let day2Temp = forecast[12].main.temp;
+          let day2Wind = forecast[12].wind.speed;
+          let day2Humitidy = forecast[12].main.humidity;
+          let day2icon = forecast[12].weather[0].icon;
           // Day 3 data
-          let day3Temp = forecast[i + 20].main.temp;
-          let day3Wind = forecast[i + 20].wind.speed;
-          let day3Humitidy = forecast[i + 20].main.humidity;
-          let day3icon = forecast[i + 20].weather[0].icon;
+          let day3Temp = forecast[20].main.temp;
+          let day3Wind = forecast[20].wind.speed;
+          let day3Humitidy = forecast[20].main.humidity;
+          let day3icon = forecast[20].weather[0].icon;
           // Day 4 data
-          let day4Temp = forecast[i + 28].main.temp;
-          let day4Wind = forecast[i + 28].wind.speed;
-          let day4Humitidy = forecast[i + 28].main.humidity;
-          let day4icon = forecast[i + 28].weather[0].icon;
+          let day4Temp = forecast[28].main.temp;
+          let day4Wind = forecast[28].wind.speed;
+          let day4Humitidy = forecast[28].main.humidity;
+          let day4icon = forecast[28].weather[0].icon;
           // Day 5 data
-          let day5Temp = forecast[i + 36].main.temp;
-          let day5Wind = forecast[i + 36].wind.speed;
-          let day5Humitidy = forecast[i + 36].main.humidity;
-          let day5icon = forecast[i + 36].weather[0].icon;
+          let day5Temp = forecast[36].main.temp;
+          let day5Wind = forecast[36].wind.speed;
+          let day5Humitidy = forecast[36].main.humidity;
+          let day5icon = forecast[36].weather[0].icon;
+          // output the dailyforecast
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
+          return dailyforecast;
         }
         if (currentHour >= 12 && currentHour < 15) {
           alert("creating the variables");
@@ -143,35 +153,48 @@ const fetchWeatherForecast = (locationDetails) => {
           let day5Wind = forecast[35].wind.speed;
           let day5Humitidy = forecast[35].main.humidity;
           let day5icon = forecast[35].weather[0].icon;
-          console.log(day1Temp);
-          let dailyforecast = [[day1Temp, day1Wind, day1Humitidy, day1icon]];
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
           return dailyforecast;
         }
         if (currentHour >= 15 && currentHour < 18) {
-          let day1Temp = forecast[i + 2].main.temp;
-          let day1Wind = forecast[i + 2].wind.speed;
-          let day1Humitidy = forecast[i + 2].main.humidity;
-          let day1icon = forecast[i + 2].weather[0].icon;
+          let day1Temp = forecast[2].main.temp;
+          let day1Wind = forecast[2].wind.speed;
+          let day1Humitidy = forecast[2].main.humidity;
+          let day1icon = forecast[2].weather[0].icon;
           // Day 2 data
-          let day2Temp = forecast[i + 10].main.temp;
-          let day2Wind = forecast[i + 10].wind.speed;
-          let day2Humitidy = forecast[i + 10].main.humidity;
-          let day2icon = forecast[i + 10].weather[0].icon;
+          let day2Temp = forecast[10].main.temp;
+          let day2Wind = forecast[10].wind.speed;
+          let day2Humitidy = forecast[10].main.humidity;
+          let day2icon = forecast[10].weather[0].icon;
           // Day 3 data
-          let day3Temp = forecast[i + 18].main.temp;
-          let day3Wind = forecast[i + 18].wind.speed;
-          let day3Humitidy = forecast[i + 18].main.humidity;
-          let day3icon = forecast[i + 18].weather[0].icon;
+          let day3Temp = forecast[18].main.temp;
+          let day3Wind = forecast[18].wind.speed;
+          let day3Humitidy = forecast[18].main.humidity;
+          let day3icon = forecast[18].weather[0].icon;
           // Day 4 data
-          let day4Temp = forecast[i + 26].main.temp;
-          let day4Wind = forecast[i + 26].wind.speed;
-          let day4Humitidy = forecast[i + 26].main.humidity;
-          let day4icon = forecast[i + 26].weather[0].icon;
+          let day4Temp = forecast[26].main.temp;
+          let day4Wind = forecast[26].wind.speed;
+          let day4Humitidy = forecast[26].main.humidity;
+          let day4icon = forecast[26].weather[0].icon;
           // Day 5 data
-          let day5Temp = forecast[i + 34].main.temp;
-          let day5Wind = forecast[i + 34].wind.speed;
-          let day5Humitidy = forecast[i + 34].main.humidity;
-          let day5icon = forecast[i + 34].weather[0].icon;
+          let day5Temp = forecast[34].main.temp;
+          let day5Wind = forecast[34].wind.speed;
+          let day5Humitidy = forecast[34].main.humidity;
+          let day5icon = forecast[34].weather[0].icon;
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
+          return dailyforecast;
         }
         if (currentHour >= 18 && currentHour < 21) {
           let day1Temp = forecast[i + 1].main.temp;
@@ -198,6 +221,14 @@ const fetchWeatherForecast = (locationDetails) => {
           let day5Wind = forecast[i + 33].wind.speed;
           let day5Humitidy = forecast[i + 33].main.humidity;
           let day5icon = forecast[i + 33].weather[0].icon;
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
+          return dailyforecast;
         }
         if (currentHour >= 21 && currentHour < 0) {
           let day1Temp = forecast[i].main.temp;
@@ -205,90 +236,135 @@ const fetchWeatherForecast = (locationDetails) => {
           let day1Humitidy = forecast[i].main.humidity;
           let day1icon = forecast[i].weather[0].icon;
           // Day 2 data
-          let day2Temp = forecast[i + 8].main.temp;
-          let day2Wind = forecast[i + 8].wind.speed;
-          let day2Humitidy = forecast[i + 8].main.humidity;
-          let day2icon = forecast[i + 8].weather[0].icon;
+          let day2Temp = forecast[8].main.temp;
+          let day2Wind = forecast[8].wind.speed;
+          let day2Humitidy = forecast[8].main.humidity;
+          let day2icon = forecast[8].weather[0].icon;
           // Day 3 data
-          let day3Temp = forecast[i + 16].main.temp;
-          let day3Wind = forecast[i + 16].wind.speed;
-          let day3Humitidy = forecast[i + 16].main.humidity;
-          let day3icon = forecast[i + 16].weather[0].icon;
+          let day3Temp = forecast[16].main.temp;
+          let day3Wind = forecast[16].wind.speed;
+          let day3Humitidy = forecast[16].main.humidity;
+          let day3icon = forecast[16].weather[0].icon;
           // Day 4 data
-          let day4Temp = forecast[i + 24].main.temp;
-          let day4Wind = forecast[i + 24].wind.speed;
-          let day4Humitidy = forecast[i + 24].main.humidity;
-          let day4icon = forecast[i + 24].weather[0].icon;
+          let day4Temp = forecast[24].main.temp;
+          let day4Wind = forecast[24].wind.speed;
+          let day4Humitidy = forecast[24].main.humidity;
+          let day4icon = forecast[24].weather[0].icon;
           // Day 5 data
-          let day5Temp = forecast[i + 32].main.temp;
-          let day5Wind = forecast[i + 32].wind.speed;
-          let day5Humitidy = forecast[i + 32].main.humidity;
-          let day5icon = forecast[i + 32].weather[0].icon;
+          let day5Temp = forecast[32].main.temp;
+          let day5Wind = forecast[32].wind.speed;
+          let day5Humitidy = forecast[32].main.humidity;
+          let day5icon = forecast[i32].weather[0].icon;
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
+          return dailyforecast;
         }
         if (currentHour >= 0 && currentHour < 3) {
-          let day1Temp = forecast[i + 7].main.temp;
-          let day1Wind = forecast[i + 7].wind.speed;
-          let day1Humitidy = forecast[i + 7].main.humidity;
-          let day1icon = forecast[i + 7].weather[0].icon;
+          let day1Temp = forecast[7].main.temp;
+          let day1Wind = forecast[7].wind.speed;
+          let day1Humitidy = forecast[7].main.humidity;
+          let day1icon = forecast[7].weather[0].icon;
           // Day 2 data
-          let day2Temp = forecast[i + 15].main.temp;
-          let day2Wind = forecast[i + 15].wind.speed;
-          let day2Humitidy = forecast[i + 15].main.humidity;
-          let day2icon = forecast[i + 15].weather[0].icon;
+          let day2Temp = forecast[15].main.temp;
+          let day2Wind = forecast[15].wind.speed;
+          let day2Humitidy = forecast[15].main.humidity;
+          let day2icon = forecast[15].weather[0].icon;
           // Day 3 data
-          let day3Temp = forecast[i + 23].main.temp;
-          let day3Wind = forecast[i + 23].wind.speed;
-          let day3Humitidy = forecast[i + 23].main.humidity;
-          let day3icon = forecast[i + 23].weather[0].icon;
+          let day3Temp = forecast[23].main.temp;
+          let day3Wind = forecast[23].wind.speed;
+          let day3Humitidy = forecast[23].main.humidity;
+          let day3icon = forecast[23].weather[0].icon;
           // Day 4 data
-          let day4Temp = forecast[i + 31].main.temp;
-          let day4Wind = forecast[i + 31].wind.speed;
-          let day4Humitidy = forecast[i + 31].main.humidity;
-          let day4icon = forecast[i + 31].weather[0].icon;
+          let day4Temp = forecast[31].main.temp;
+          let day4Wind = forecast[31].wind.speed;
+          let day4Humitidy = forecast[31].main.humidity;
+          let day4icon = forecast[31].weather[0].icon;
           // Day 5 data
-          let day5Temp = forecast[i + 39].main.temp;
-          let day5Wind = forecast[i + 39].wind.speed;
-          let day5Humitidy = forecast[i + 39].main.humidity;
-          let day5icon = forecast[i + 39].weather[0].icon;
+          let day5Temp = forecast[39].main.temp;
+          let day5Wind = forecast[39].wind.speed;
+          let day5Humitidy = forecast[39].main.humidity;
+          let day5icon = forecast[39].weather[0].icon;
+          // output the forecast
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
+          return dailyforecast;
         }
         if (currentHour >= 3 && currentHour < 6) {
-          let day1Temp = forecast[i + 6].main.temp;
-          let day1Wind = forecast[i + 6].wind.speed;
-          let day1Humitidy = forecast[i + 6].main.humidity;
-          let day1icon = forecast[i + 6].weather[0].icon;
+          let day1Temp = forecast[6].main.temp;
+          let day1Wind = forecast[6].wind.speed;
+          let day1Humitidy = forecast[6].main.humidity;
+          let day1icon = forecast[6].weather[0].icon;
           // Day 2 data
-          let day2Temp = forecast[i + 15].main.temp;
-          let day2Wind = forecast[i + 15].wind.speed;
-          let day2Humitidy = forecast[i + 15].main.humidity;
-          let day2icon = forecast[i + 15].weather[0].icon;
+          let day2Temp = forecast[15].main.temp;
+          let day2Wind = forecast[15].wind.speed;
+          let day2Humitidy = forecast[15].main.humidity;
+          let day2icon = forecast[15].weather[0].icon;
           // Day 3 data
-          let day3Temp = forecast[i + 23].main.temp;
-          let day3Wind = forecast[i + 23].wind.speed;
-          let day3Humitidy = forecast[i + 23].main.humidity;
-          let day3icon = forecast[i + 23].weather[0].icon;
+          let day3Temp = forecast[23].main.temp;
+          let day3Wind = forecast[23].wind.speed;
+          let day3Humitidy = forecast[23].main.humidity;
+          let day3icon = forecast[23].weather[0].icon;
           // Day 4 data
-          let day4Temp = forecast[i + 31].main.temp;
-          let day4Wind = forecast[i + 31].wind.speed;
-          let day4Humitidy = forecast[i + 31].main.humidity;
-          let day4icon = forecast[i + 31].weather[0].icon;
+          let day4Temp = forecast[31].main.temp;
+          let day4Wind = forecast[31].wind.speed;
+          let day4Humitidy = forecast[31].main.humidity;
+          let day4icon = forecast[31].weather[0].icon;
           // Day 5 data
-          let day5Temp = forecast[i + 39].main.temp;
-          let day5Wind = forecast[i + 39].wind.speed;
-          let day5Humitidy = forecast[i + 39].main.humidity;
-          let day5icon = forecast[i + 39].weather[0].icon;
+          let day5Temp = forecast[39].main.temp;
+          let day5Wind = forecast[39].wind.speed;
+          let day5Humitidy = forecast[39].main.humidity;
+          let day5icon = forecast[39].weather[0].icon;
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
+          return dailyforecast;
         }
-        // Read out the forecast variables into the dom and onto the page
-        // create day 1 forecast div & add after the H1 element
+
+        // read out the forecast and pass into the dom
       })
       .then((dailyforecast) => {
         console.log(dailyforecast);
-        console.log(dailyforecast[0][1]);
 
-        let day1forecastBlock = $("<div>");
-        day1forecastBlock.addClass("h3");
-        let day1tempEl = $("<p>").text(dailyforecast[0][1]);
-        day1forecastBlock.append(day1tempEl);
-        $("#forecast-details").append(day1forecastBlock);
+        // Loop through and check this in ful.
+
+        for (let i = 0; i <= 2; i++) {
+          // create the elements for each forecast item:
+
+          let forecastTemp = $("<p>");
+          forecastTemp.text(`Temp: ${i + 1}: ${dailyforecast[i][i]}`);
+          let forecastWind = $("<p>");
+          forecastWind.text(`Wind: ${i + 1}: ${dailyforecast[i][i]}kph`);
+          let forecastHumidity = $("<p>");
+          forecastHumidity.text(`Hum: ${dailyforecast[i][i + 2]}`);
+          let forecastIcon = $("<img>");
+          forecastIcon.attr("alt", "omg");
+
+          // append these elements into a div:
+
+          let dayForecastBlockEL = $("<div>");
+          dayForecastBlockEL.append(
+            forecastTemp,
+            forecastWind,
+            forecastHumidity,
+            forecastIcon
+          );
+
+          $("#forecast-details").append(dayForecastBlockEL);
+        }
       });
   });
 };
