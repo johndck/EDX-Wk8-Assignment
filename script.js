@@ -92,6 +92,16 @@ const fetchWeatherForecast = (locationDetails) => {
         // what is the current hour
         let currentHour = dayjs().hour();
         console.log(currentHour);
+
+        // ======================================================== //
+        // Still to do Sat 13 Jan //
+        // Task - add in the 6-9 block
+        // Get the forecast code outputing correctly
+        // Get the forecast styling working
+        // Hook up the search button to call the forecast functions
+        // Add the city search term to local storage
+        // Retrieve the local storage item and read it into the history section
+
         if (currentHour >= 9 && currentHour < 12) {
           let day1Temp = forecast[4].main.temp;
           let day1Wind = forecast[4].wind.speed;
@@ -340,31 +350,38 @@ const fetchWeatherForecast = (locationDetails) => {
         console.log(dailyforecast);
 
         // Loop through and check this in ful.
+        // Create the holding div and make it flex
+        let forecastHoldingEl = $("<div>");
+        forecastHoldingEl.addClass("d-flex flex-row gap-4");
 
-        for (let i = 0; i <= 2; i++) {
+        for (let i = 0; i < dailyforecast.length; i++) {
           // create the elements for each forecast item:
 
-          let forecastTemp = $("<p>");
-          forecastTemp.text(`Temp: ${i + 1}: ${dailyforecast[i][i]}`);
-          let forecastWind = $("<p>");
-          forecastWind.text(`Wind: ${i + 1}: ${dailyforecast[i][i]}kph`);
-          let forecastHumidity = $("<p>");
-          forecastHumidity.text(`Hum: ${dailyforecast[i][i + 2]}`);
           let forecastIcon = $("<img>");
-          forecastIcon.attr("alt", "omg");
-
+          forecastIcon.attr(
+            "src",
+            `https://openweathermap.org/img/wn/${dailyforecast[i][3]}.png`
+          );
+          let forecastTemp = $("<p>");
+          forecastTemp.text(`Temp: ${i + 1}: ${dailyforecast[i][0]}`);
+          let forecastWind = $("<p>");
+          forecastWind.text(`Wind: ${i + 1}: ${dailyforecast[i][1]}kph`);
+          let forecastHumidity = $("<p>");
+          forecastHumidity.text(`Hum: ${dailyforecast[i][2]}`);
           // append these elements into a div:
 
           let dayForecastBlockEL = $("<div>");
+          dayForecastBlockEL.addClass("bg-black");
+          dayForecastBlockEL.addClass("text-white");
           dayForecastBlockEL.append(
+            forecastIcon,
             forecastTemp,
             forecastWind,
-            forecastHumidity,
-            forecastIcon
+            forecastHumidity
           );
-
-          $("#forecast-details").append(dayForecastBlockEL);
+          forecastHoldingEl.append(dayForecastBlockEL);
         }
+        $("#forecast-details").after(forecastHoldingEl);
       });
   });
 };
