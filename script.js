@@ -92,6 +92,16 @@ const fetchWeatherForecast = (locationDetails) => {
         // what is the current hour
         let currentHour = dayjs().hour();
         console.log(currentHour);
+
+        // ======================================================== //
+        // Still to do Sat 13 Jan //
+        // Task - add in the 6-9 block
+        // Get the forecast code outputing correctly
+        // Get the forecast styling working
+        // Hook up the search button to call the forecast functions
+        // Add the city search term to local storage
+        // Retrieve the local storage item and read it into the history section
+
         if (currentHour >= 9 && currentHour < 12) {
           let day1Temp = forecast[4].main.temp;
           let day1Wind = forecast[4].wind.speed;
