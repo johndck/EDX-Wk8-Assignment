@@ -67,12 +67,12 @@ const fetchWeatherDetails = async (locationDetails) => {
   );
 };
 
-//fetchWeatherDetails("Cambridge");
-
+let successForecastdisplayed;
+let locationQuery;
 const fetchWeatherForecast = (locationDetails) => {
   // Get Lat & long details for the forecast API
 
-  let locationQuery = locationDetails;
+  locationQuery = locationDetails;
   getLongLang(locationQuery).then((results) => {
     let latdetails = results[1];
     let longdetails = results[2];
@@ -97,12 +97,6 @@ const fetchWeatherForecast = (locationDetails) => {
         let currentHour = dayjs().hour();
         console.log(currentHour);
 
-        // ======================================================== //
-        // Still to do Sat 13 Jan //
-        // Task - add in the 6-9 block
-
-        // Hook up the search button to call the forecast functions
-        // Add the city search term to local storage
         // Retrieve the local storage item and read it into the history section
 
         if (currentHour >= 9 && currentHour < 12) {
@@ -422,17 +416,63 @@ const fetchWeatherForecast = (locationDetails) => {
         }
         $("#forecast").append(forecastHeadingEl);
         $("#headingForecast").after(forecastHoldingEl);
+        // Save successful search
+
+        if ($("#daysForecast").children().length == 5) {
+          console.log(locationQuery);
+
+          saveSearchTerm(locationQuery);
+          searchInput.value = "";
+
+          // SaveSearchTerm ()
+        }
       });
   });
 };
 
-//fetchWeatherForecast("Cambridge");
+// Save City Search Record (only if a successful search executed)
 
+const saveSearchTerm = (searchTerm) => {
+  let savedSearches = JSON.parse(localStorage.getItem("forecastSearchHistory"));
+
+  if (savedSearches == null) {
+    let newSearchEvent = JSON.stringify([{ searchCity: searchTerm }]);
+    localStorage.setItem("forecastSearchHistory", newSearchEvent);
+    searchHistory();
+  } else {
+    // loop through to see if city is already saved
+
+    for (let i = 0; i < savedSearches.length; i++) {
+      let existingSavedCity = savedSearches[i].searchCity;
+
+      if (existingSavedCity === searchTerm) {
+        return;
+      }
+    }
+    newSearchEvent = { searchCity: searchTerm };
+    savedSearches.push(newSearchEvent);
+    let updateEvents = JSON.stringify(savedSearches);
+    localStorage.setItem("forecastSearchHistory", updateEvents);
+    searchHistory();
+    return;
+  }
+};
+
+/** Here is the main code for the search button */
+// ============================================== //
+// ============================================== //
+
+// Get the search input text box & search button:
 let searchInput = document.querySelector("#search-input");
 let searchCity = document.querySelector("#search-button");
 
+// Add the event listener to the search button
+// Note jQuery does not support calling async functions via the event listener, hence why using native javascript
+
 searchCity.addEventListener("click", async function (event) {
   event.preventDefault();
+
+  /** Handle initial mistakes made by the user such as searching with blank input values..... */
 
   // stop blank form submits
   if (searchInput.value === "") {
@@ -449,8 +489,8 @@ searchCity.addEventListener("click", async function (event) {
       return;
     }
   }
+  // empty out previous search results - if someone selects search of the same city again. This avoids repeating loop to add the HTML
 
-  // empty out previous search results
   if (
     $("#today").children().length > 0 &&
     $("#forecast").children().length > 0
@@ -461,7 +501,7 @@ searchCity.addEventListener("click", async function (event) {
 
   await fetchWeatherDetails(searchInput.value);
 
-  // reset input box when city is not found
+  // exit function if no city is found & reset input box when city is not found
   if (noCityrecord) {
     alert("Unfortunately we can't find your city.");
     searchInput.value = "";
@@ -470,4 +510,36 @@ searchCity.addEventListener("click", async function (event) {
   }
 
   fetchWeatherForecast(searchInput.value);
+
+  // call function to add historic search button and display on the aside section.
+  // add search to
 });
+
+// Get historic searches back & display them
+// ============================================== //
+
+const searchHistory = () => {
+  let checkHistory = JSON.parse(localStorage.getItem("forecastSearchHistory"));
+  if (checkHistory == null) {
+    alert("no search history JD");
+    return;
+  } else {
+    // we have a search history
+    // create the dynamic buttons:
+    $("#history").empty();
+    for (let i = 0; i < checkHistory.length; i++) {
+      // empty the children & re-add full list
+      let buttonEl = $("<button>");
+      buttonEl.text(checkHistory[i].searchCity);
+      buttonEl.attr("data-city", checkHistory[i].searchCity);
+      buttonEl.addClass("btn mt-2 btn-secondary col-12");
+      $("#history").append(buttonEl);
+    }
+    $("#history").on("click", "button", function (event) {
+      event.stopPropagation();
+      alert("need to a fresh search");
+    });
+  }
+};
+
+searchHistory();
