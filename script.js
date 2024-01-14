@@ -1,17 +1,6 @@
-/** Create the default city and date for the app
- * takes in the city variable
- * uses the day.js library
- */
+// Connect up the search button
 
-const cityDate = (city) => {
-  // get today's date
-  // get the city
-  // create the <h1> element inside the section
-  let currentDate = dayjs();
-  let formatDate = currentDate.format("DD/M/YYYY");
-  $("#today").append(`<h2>${city} (${formatDate})</h2>`);
-};
-
+let noCityrecord;
 const getLongLang = async (locationQuery) => {
   let limit = 1;
   let apiKey = "2a7e07fe638ea604b92f79e5f876f590";
@@ -19,12 +8,27 @@ const getLongLang = async (locationQuery) => {
 
   const response = await fetch(queryURL);
   const data = await response.json();
-  let results = [data[0].name, data[0].lat, data[0].lon];
-  return results;
+  //console.log(data);
+  //console.log(data.length);
+  if (data.length === 0) {
+    noCityrecord = true;
+    return noCityrecord;
+  } else {
+    let results = [data[0].name, data[0].lat, data[0].lon];
+    console.log(results);
+    return results;
+  }
 };
 
 const fetchWeatherDetails = async (locationDetails) => {
   let longLang = await getLongLang(locationDetails);
+
+  if (noCityrecord) {
+    return;
+  }
+
+  // error handling
+
   let latdetails = longLang[1];
   let longdetails = longLang[2];
   console.log(latdetails);
@@ -63,7 +67,7 @@ const fetchWeatherDetails = async (locationDetails) => {
   );
 };
 
-fetchWeatherDetails("Cambridge");
+//fetchWeatherDetails("Cambridge");
 
 const fetchWeatherForecast = (locationDetails) => {
   // Get Lat & long details for the forecast API
@@ -96,8 +100,7 @@ const fetchWeatherForecast = (locationDetails) => {
         // ======================================================== //
         // Still to do Sat 13 Jan //
         // Task - add in the 6-9 block
-        // Get the forecast code outputing correctly
-        // Get the forecast styling working
+
         // Hook up the search button to call the forecast functions
         // Add the city search term to local storage
         // Retrieve the local storage item and read it into the history section
@@ -138,7 +141,6 @@ const fetchWeatherForecast = (locationDetails) => {
           return dailyforecast;
         }
         if (currentHour >= 12 && currentHour < 15) {
-          alert("creating the variables");
           let day1Temp = forecast[3].main.temp;
           let day1Wind = forecast[3].wind.speed;
           let day1Humitidy = forecast[3].main.humidity;
@@ -207,30 +209,30 @@ const fetchWeatherForecast = (locationDetails) => {
           return dailyforecast;
         }
         if (currentHour >= 18 && currentHour < 21) {
-          let day1Temp = forecast[i + 1].main.temp;
-          let day1Wind = forecast[i + 1].wind.speed;
-          let day1Humitidy = forecast[i + 1].main.humidity;
-          let day1icon = forecast[i + 1].weather[0].icon;
+          let day1Temp = forecast[1].main.temp;
+          let day1Wind = forecast[1].wind.speed;
+          let day1Humitidy = forecast[1].main.humidity;
+          let day1icon = forecast[1].weather[0].icon;
           // Day 2 data
-          let day2Temp = forecast[i + 9].main.temp;
-          let day2Wind = forecast[i + 9].wind.speed;
-          let day2Humitidy = forecast[i + 9].main.humidity;
-          let day2icon = forecast[i + 9].weather[0].icon;
+          let day2Temp = forecast[9].main.temp;
+          let day2Wind = forecast[9].wind.speed;
+          let day2Humitidy = forecast[9].main.humidity;
+          let day2icon = forecast[9].weather[0].icon;
           // Day 3 data
-          let day3Temp = forecast[i + 17].main.temp;
-          let day3Wind = forecast[i + 17].wind.speed;
-          let day3Humitidy = forecast[i + 17].main.humidity;
-          let day3icon = forecast[i + 17].weather[0].icon;
+          let day3Temp = forecast[17].main.temp;
+          let day3Wind = forecast[17].wind.speed;
+          let day3Humitidy = forecast[17].main.humidity;
+          let day3icon = forecast[17].weather[0].icon;
           // Day 4 data
-          let day4Temp = forecast[i + 25].main.temp;
-          let day4Wind = forecast[i + 25].wind.speed;
-          let day4Humitidy = forecast[i + 25].main.humidity;
-          let day4icon = forecast[i + 25].weather[0].icon;
+          let day4Temp = forecast[25].main.temp;
+          let day4Wind = forecast[25].wind.speed;
+          let day4Humitidy = forecast[25].main.humidity;
+          let day4icon = forecast[25].weather[0].icon;
           // Day 5 data
-          let day5Temp = forecast[i + 33].main.temp;
-          let day5Wind = forecast[i + 33].wind.speed;
-          let day5Humitidy = forecast[i + 33].main.humidity;
-          let day5icon = forecast[i + 33].weather[0].icon;
+          let day5Temp = forecast[33].main.temp;
+          let day5Wind = forecast[33].wind.speed;
+          let day5Humitidy = forecast[33].main.humidity;
+          let day5icon = forecast[33].weather[0].icon;
           let dailyforecast = [
             [day1Temp, day1Wind, day1Humitidy, day1icon],
             [day2Temp, day2Wind, day2Humitidy, day2icon],
@@ -241,10 +243,10 @@ const fetchWeatherForecast = (locationDetails) => {
           return dailyforecast;
         }
         if (currentHour >= 21 && currentHour < 0) {
-          let day1Temp = forecast[i].main.temp;
-          let day1Wind = forecast[i].wind.speed;
-          let day1Humitidy = forecast[i].main.humidity;
-          let day1icon = forecast[i].weather[0].icon;
+          let day1Temp = forecast[0].main.temp;
+          let day1Wind = forecast[0].wind.speed;
+          let day1Humitidy = forecast[0].main.humidity;
+          let day1icon = forecast[0].weather[0].icon;
           // Day 2 data
           let day2Temp = forecast[8].main.temp;
           let day2Wind = forecast[8].wind.speed;
@@ -264,7 +266,7 @@ const fetchWeatherForecast = (locationDetails) => {
           let day5Temp = forecast[32].main.temp;
           let day5Wind = forecast[32].wind.speed;
           let day5Humitidy = forecast[32].main.humidity;
-          let day5icon = forecast[i32].weather[0].icon;
+          let day5icon = forecast[32].weather[0].icon;
           let dailyforecast = [
             [day1Temp, day1Wind, day1Humitidy, day1icon],
             [day2Temp, day2Wind, day2Humitidy, day2icon],
@@ -343,7 +345,40 @@ const fetchWeatherForecast = (locationDetails) => {
           ];
           return dailyforecast;
         }
-
+        if (currentHour >= 6 && currentHour < 9) {
+          let day1Temp = forecast[5].main.temp;
+          let day1Wind = forecast[5].wind.speed;
+          let day1Humitidy = forecast[5].main.humidity;
+          let day1icon = forecast[5].weather[0].icon;
+          // Day 2 data
+          let day2Temp = forecast[13].main.temp;
+          let day2Wind = forecast[13].wind.speed;
+          let day2Humitidy = forecast[13].main.humidity;
+          let day2icon = forecast[13].weather[0].icon;
+          // Day 3 data
+          let day3Temp = forecast[21].main.temp;
+          let day3Wind = forecast[21].wind.speed;
+          let day3Humitidy = forecast[21].main.humidity;
+          let day3icon = forecast[21].weather[0].icon;
+          // Day 4 data
+          let day4Temp = forecast[29].main.temp;
+          let day4Wind = forecast[29].wind.speed;
+          let day4Humitidy = forecast[29].main.humidity;
+          let day4icon = forecast[29].weather[0].icon;
+          // Day 5 data
+          let day5Temp = forecast[37].main.temp;
+          let day5Wind = forecast[37].wind.speed;
+          let day5Humitidy = forecast[37].main.humidity;
+          let day5icon = forecast[37].weather[0].icon;
+          let dailyforecast = [
+            [day1Temp, day1Wind, day1Humitidy, day1icon],
+            [day2Temp, day2Wind, day2Humitidy, day2icon],
+            [day3Temp, day3Wind, day3Humitidy, day3icon],
+            [day4Temp, day4Wind, day4Humitidy, day4icon],
+            [day5Temp, day5Wind, day5Humitidy, day5icon],
+          ];
+          return dailyforecast;
+        }
         // read out the forecast and pass into the dom
       })
       .then((dailyforecast) => {
@@ -351,8 +386,12 @@ const fetchWeatherForecast = (locationDetails) => {
 
         // Loop through and check this in ful.
         // Create the holding div and make it flex
+        let forecastHeadingEl = $("<h1>");
+        forecastHeadingEl.text("5 Day Forecast");
+        forecastHeadingEl.attr("id", "headingForecast");
         let forecastHoldingEl = $("<div>");
         forecastHoldingEl.addClass("d-flex flex-row gap-4");
+        forecastHoldingEl.attr("id", "daysForecast");
 
         for (let i = 0; i < dailyforecast.length; i++) {
           // create the elements for each forecast item:
@@ -381,9 +420,54 @@ const fetchWeatherForecast = (locationDetails) => {
           );
           forecastHoldingEl.append(dayForecastBlockEL);
         }
-        $("#forecast-details").after(forecastHoldingEl);
+        $("#forecast").append(forecastHeadingEl);
+        $("#headingForecast").after(forecastHoldingEl);
       });
   });
 };
 
-fetchWeatherForecast("Cambridge");
+//fetchWeatherForecast("Cambridge");
+
+let searchInput = document.querySelector("#search-input");
+let searchCity = document.querySelector("#search-button");
+
+searchCity.addEventListener("click", async function (event) {
+  event.preventDefault();
+
+  // stop blank form submits
+  if (searchInput.value === "") {
+    alert("Please provide a search city name");
+    return;
+  }
+  // stop numbers being submitted
+  for (let i = 0; i < searchInput.value.length; i++) {
+    let chars = searchInput.value[i];
+
+    if (!isNaN(chars)) {
+      alert("We can't search for a city with numbers in the name!");
+      searchInput.value = "";
+      return;
+    }
+  }
+
+  // empty out previous search results
+  if (
+    $("#today").children().length > 0 &&
+    $("#forecast").children().length > 0
+  ) {
+    $("#today").empty();
+    $("#forecast").empty();
+  }
+
+  await fetchWeatherDetails(searchInput.value);
+
+  // reset input box when city is not found
+  if (noCityrecord) {
+    alert("Unfortunately we can't find your city.");
+    searchInput.value = "";
+    noCityrecord = false;
+    return;
+  }
+
+  fetchWeatherForecast(searchInput.value);
+});
