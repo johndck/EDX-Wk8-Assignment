@@ -6,3 +6,20 @@
 .build {
   border: 1px black solid;
 }
+
+.custom-background {
+  background-color: rgba(45, 62, 80, 1);
+}
+
+.forecast-card {
+  width: 12rem;
+  padding: 1.5rem;
+}
+
+.headerGradient {
+  background: linear-gradient(
+    to right,
+    rgba(51, 94, 181, 1),
+    rgba(34, 18, 86, 1)
+  );
+}
