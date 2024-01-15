@@ -419,12 +419,8 @@ const fetchWeatherForecast = (locationDetails) => {
         // Save successful search
 
         if ($("#daysForecast").children().length == 5) {
-          console.log(locationQuery);
-
           saveSearchTerm(locationQuery);
           searchInput.value = "";
-
-          // SaveSearchTerm ()
         }
       });
   });
@@ -453,9 +449,54 @@ const saveSearchTerm = (searchTerm) => {
     savedSearches.push(newSearchEvent);
     let updateEvents = JSON.stringify(savedSearches);
     localStorage.setItem("forecastSearchHistory", updateEvents);
+
     searchHistory();
     return;
   }
+};
+
+const searchHistory = () => {
+  let checkHistory = JSON.parse(localStorage.getItem("forecastSearchHistory"));
+  if (checkHistory == null) {
+    alert("no search history JD");
+    return;
+  } else {
+    // we have a search history
+    // create the dynamic buttons:
+    $("#history").empty();
+    for (let i = 0; i < checkHistory.length; i++) {
+      // empty the children & re-add full list
+      let buttonEl = $("<button>");
+      buttonEl.text(checkHistory[i].searchCity);
+      buttonEl.attr("data-city", checkHistory[i].searchCity);
+      buttonEl.addClass("btn mt-2 btn-secondary col-12");
+      $("#history").append(buttonEl);
+    }
+  }
+
+  const historyEl = document.querySelector("#history");
+  const handleClick = (event) => {
+    event.stopImmediatePropagation();
+    if (event.target.matches("button")) {
+      let city = event.target.dataset.city;
+      event.target.removeEventListener("click", handleClick);
+
+      if (
+        $("#today").children().length > 0 &&
+        $("#forecast").children().length > 0
+      ) {
+        $("#today").empty();
+        $("#forecast").empty();
+      }
+
+      fetchWeatherDetails(city);
+      fetchWeatherForecast(city);
+    }
+  };
+
+  historyEl.addEventListener("click", handleClick);
+
+  //fetchWeatherDetails(city);
 };
 
 /** Here is the main code for the search button */
@@ -518,28 +559,6 @@ searchCity.addEventListener("click", async function (event) {
 // Get historic searches back & display them
 // ============================================== //
 
-const searchHistory = () => {
-  let checkHistory = JSON.parse(localStorage.getItem("forecastSearchHistory"));
-  if (checkHistory == null) {
-    alert("no search history JD");
-    return;
-  } else {
-    // we have a search history
-    // create the dynamic buttons:
-    $("#history").empty();
-    for (let i = 0; i < checkHistory.length; i++) {
-      // empty the children & re-add full list
-      let buttonEl = $("<button>");
-      buttonEl.text(checkHistory[i].searchCity);
-      buttonEl.attr("data-city", checkHistory[i].searchCity);
-      buttonEl.addClass("btn mt-2 btn-secondary col-12");
-      $("#history").append(buttonEl);
-    }
-    $("#history").on("click", "button", function (event) {
-      event.stopPropagation();
-      alert("need to a fresh search");
-    });
-  }
-};
+//
 
 searchHistory();
