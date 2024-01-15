@@ -8,14 +8,11 @@ const getLongLang = async (locationQuery) => {
 
   const response = await fetch(queryURL);
   const data = await response.json();
-  //console.log(data);
-  //console.log(data.length);
   if (data.length === 0) {
     noCityrecord = true;
     return noCityrecord;
   } else {
     let results = [data[0].name, data[0].lat, data[0].lon];
-    console.log(results);
     return results;
   }
 };
@@ -31,8 +28,6 @@ const fetchWeatherDetails = async (locationDetails) => {
 
   let latdetails = longLang[1];
   let longdetails = longLang[2];
-  console.log(latdetails);
-  console.log(longdetails);
 
   // Get the weather details
   // Here is the api details page: >> https://openweathermap.org/current
@@ -41,15 +36,13 @@ const fetchWeatherDetails = async (locationDetails) => {
 
   const response = await fetch(queryURL);
   const data = await response.json();
-  console.log("success data returned");
+  //console.log("success data returned");
   // today
-  console.log(`temp: ${data.main.temp}`);
-  console.log(`wind: ${data.wind.speed}kph`);
-  console.log(`humidity: ${data.main.humidity}%`);
-  //console.log(data.list[0].dt_txt, data.list[0].main.temp);
-  //console.log(data.list[39].dt_txt, data.list[39].main.temp);
+  //console.log(`temp: ${data.main.temp}`);
+  //console.log(`wind: ${data.wind.speed}kph`);
+  //console.log(`humidity: ${data.main.humidity}%`);
 
-  // At the data to the page
+  // Add the data to the page
 
   let currentDate = dayjs();
   let formatDate = currentDate.format("DD/M/YYYY");
@@ -60,6 +53,8 @@ const fetchWeatherDetails = async (locationDetails) => {
   let humidityEl = $("<p>").text(`Temp: ${data.main.humidity}%`);
 
   forecastSummaryEl.append(tempEl, windEl, humidityEl);
+
+  /// add let iconEl =
 
   $("#today").append(
     `<h2>${locationDetails} (${formatDate})</h2>`,
@@ -76,7 +71,6 @@ const fetchWeatherForecast = (locationDetails) => {
   getLongLang(locationQuery).then((results) => {
     let latdetails = results[1];
     let longdetails = results[2];
-    //console.log(`Lat: ${latdetails}, long: ${longdetails}`);
 
     // Fetch the weather forecast data
     // Use the basic FETCH API method
@@ -88,14 +82,10 @@ const fetchWeatherForecast = (locationDetails) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         let forecast = data.list;
-        console.log(forecast);
-        //console.log(forecast);
-        //console.log(forecast.length);
+
         // what is the current hour
         let currentHour = dayjs().hour();
-        console.log(currentHour);
 
         // Retrieve the local storage item and read it into the history section
 
@@ -236,7 +226,7 @@ const fetchWeatherForecast = (locationDetails) => {
           ];
           return dailyforecast;
         }
-        if (currentHour >= 21 && currentHour < 0) {
+        if (currentHour >= 21) {
           let day1Temp = forecast[0].main.temp;
           let day1Wind = forecast[0].wind.speed;
           let day1Humitidy = forecast[0].main.humidity;
@@ -376,19 +366,24 @@ const fetchWeatherForecast = (locationDetails) => {
         // read out the forecast and pass into the dom
       })
       .then((dailyforecast) => {
-        console.log(dailyforecast);
-
         // Loop through and check this in ful.
         // Create the holding div and make it flex
         let forecastHeadingEl = $("<h1>");
         forecastHeadingEl.text("5 Day Forecast");
+        forecastHeadingEl.addClass("mb-4");
         forecastHeadingEl.attr("id", "headingForecast");
         let forecastHoldingEl = $("<div>");
-        forecastHoldingEl.addClass("d-flex flex-row gap-4");
+        forecastHoldingEl.addClass(
+          "d-flex flex-row justify-content-between gap-2"
+        );
         forecastHoldingEl.attr("id", "daysForecast");
 
         for (let i = 0; i < dailyforecast.length; i++) {
-          // create the elements for each forecast item:
+          // create the forecast dates (manually)
+          let forecastTodayDate = dayjs();
+          let forecastDay = forecastTodayDate.add(i + 1, "day");
+          let newForecastDate = $("<h5>");
+          newForecastDate.text(forecastDay.format("DD/M/YYYY"));
 
           let forecastIcon = $("<img>");
           forecastIcon.attr(
@@ -396,17 +391,20 @@ const fetchWeatherForecast = (locationDetails) => {
             `https://openweathermap.org/img/wn/${dailyforecast[i][3]}.png`
           );
           let forecastTemp = $("<p>");
-          forecastTemp.text(`Temp: ${i + 1}: ${dailyforecast[i][0]}`);
+          forecastTemp.text(`Temp: ${dailyforecast[i][0]} ºC`);
           let forecastWind = $("<p>");
           forecastWind.text(`Wind: ${i + 1}: ${dailyforecast[i][1]}kph`);
           let forecastHumidity = $("<p>");
-          forecastHumidity.text(`Hum: ${dailyforecast[i][2]}`);
+          forecastHumidity.text(`Humidity: ${dailyforecast[i][2]}%`);
           // append these elements into a div:
 
           let dayForecastBlockEL = $("<div>");
-          dayForecastBlockEL.addClass("bg-black");
+          dayForecastBlockEL.addClass(
+            "custom-background rounded forecast-card"
+          );
           dayForecastBlockEL.addClass("text-white");
           dayForecastBlockEL.append(
+            newForecastDate,
             forecastIcon,
             forecastTemp,
             forecastWind,
@@ -555,10 +553,5 @@ searchCity.addEventListener("click", async function (event) {
   // call function to add historic search button and display on the aside section.
   // add search to
 });
-
-// Get historic searches back & display them
-// ============================================== //
-
-//
 
 searchHistory();
