@@ -456,7 +456,6 @@ const saveSearchTerm = (searchTerm) => {
 const searchHistory = () => {
   let checkHistory = JSON.parse(localStorage.getItem("forecastSearchHistory"));
   if (checkHistory == null) {
-    alert("no search history JD");
     return;
   } else {
     // we have a search history
