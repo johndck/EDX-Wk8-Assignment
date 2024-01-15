@@ -4,7 +4,7 @@ let noCityrecord;
 const getLongLang = async (locationQuery) => {
   let limit = 1;
   let apiKey = "2a7e07fe638ea604b92f79e5f876f590";
-  let queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${locationQuery}&limit=${limit}&appid=${apiKey}`;
+  let queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${locationQuery}&limit=${limit}&appid=${apiKey}`;
 
   const response = await fetch(queryURL);
   const data = await response.json();
@@ -37,7 +37,7 @@ const fetchWeatherDetails = async (locationDetails) => {
   // Get the weather details
   // Here is the api details page: >> https://openweathermap.org/current
 
-  let queryURL = `http://api.openweathermap.org/data/2.5/weather?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f590&units=metric`;
+  let queryURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f590&units=metric`;
 
   const response = await fetch(queryURL);
   const data = await response.json();
@@ -81,7 +81,7 @@ const fetchWeatherForecast = (locationDetails) => {
     // Fetch the weather forecast data
     // Use the basic FETCH API method
 
-    let queryURL = `http://api.openweathermap.org/data/2.5/forecast?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f590&units=metric`;
+    let queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f590&units=metric`;
 
     fetch(queryURL)
       .then((response) => {
