@@ -46,7 +46,8 @@ The following image shows the web application's appearance and functionality:
 
 ** You can view the application:
 
-url:
+url: https://johndck.github.io/EDX-Wk8-Assignment/
+
 
 
 
