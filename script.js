@@ -388,7 +388,9 @@ const fetchWeatherForecast = (locationDetails) => {
         forecastHeadingEl.addClass("row");
         forecastHeadingEl.attr("id", "headingForecast");
         let forecastHoldingEl = $("<div>");
-        forecastHoldingEl.addClass("row");
+        forecastHoldingEl.addClass(
+          "row justify-content-around justify-content-lg-start"
+        );
 
         /*
         forecastHoldingEl.addClass(
