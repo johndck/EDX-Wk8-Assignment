@@ -6,14 +6,18 @@ const getLongLang = async (locationQuery) => {
   let apiKey = "2a7e07fe638ea604b92f79e5f876f590";
   let queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${locationQuery}&limit=${limit}&appid=${apiKey}`;
 
-  const response = await fetch(queryURL);
-  const data = await response.json();
-  if (data.length === 0) {
-    noCityrecord = true;
-    return noCityrecord;
-  } else {
-    let results = [data[0].name, data[0].lat, data[0].lon];
-    return results;
+  try {
+    const response = await fetch(queryURL);
+    const data = await response.json();
+    if (data.length === 0) {
+      noCityrecord = true;
+      return noCityrecord;
+    } else {
+      let results = [data[0].name, data[0].lat, data[0].lon];
+      return results;
+    }
+  } catch (error) {
+    alert("API is not working");
   }
 };
 
