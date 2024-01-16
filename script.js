@@ -520,7 +520,7 @@ searchCity.addEventListener("click", async function (event) {
   /** Handle initial mistakes made by the user such as searching with blank input values..... */
 
   if (!/^[A-Za-z\s]+$/.test(searchInput.value)) {
-    alert("Please enter a valid city");
+    $("#alertModal").modal("show");
     return;
   }
   if (
@@ -535,7 +535,10 @@ searchCity.addEventListener("click", async function (event) {
 
   // exit function if no city is found & reset input box when city is not found
   if (noCityrecord) {
-    alert("Unfortunately we can't find your city.");
+    //alert("Unfortunately we can't find your city.");
+
+    $("#alertModal-noCity").modal("show");
+
     searchInput.value = "";
     noCityrecord = false;
     return;
