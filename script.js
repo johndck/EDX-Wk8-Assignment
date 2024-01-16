@@ -17,7 +17,11 @@ const getLongLang = async (locationQuery) => {
       return results;
     }
   } catch (error) {
-    alert("API is not working");
+    console.log("error getting the data", error);
+    alert("we have no data to show");
+    noCityrecord = true;
+    console.log(noCityrecord);
+    return;
   }
 };
 
@@ -36,7 +40,7 @@ const fetchWeatherDetails = async (locationDetails) => {
   // Get the weather details
   // Here is the api details page: >> https://openweathermap.org/current
 
-  let queryURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f591&units=metric`;
+  let queryURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f590&units=metric`;
 
   const response = await fetch(queryURL);
   const data = await response.json();
@@ -385,7 +389,7 @@ const fetchWeatherForecast = (locationDetails) => {
         forecastHeadingEl.attr("id", "headingForecast");
         let forecastHoldingEl = $("<div>");
         forecastHoldingEl.addClass(
-          "d-flex flex-row justify-content-between gap-2"
+          "d-flex flex-row flex-wrap justify-content-evenly gap-1"
         );
         forecastHoldingEl.attr("id", "daysForecast");
 
