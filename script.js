@@ -44,22 +44,29 @@ const fetchWeatherDetails = async (locationDetails) => {
 
   // Add the data to the page
 
+  console.log(data);
+  console.log(data.weather[0].icon);
+
   let currentDate = dayjs();
   let formatDate = currentDate.format("DD/M/YYYY");
 
   let forecastSummaryEl = $("<div>");
-  let tempEl = $("<p>").text(`Temp: ${data.main.temp}`);
-  let windEl = $("<p>").text(`Wind: ${data.wind.speed}kph`);
+  let weatherIconEl = $("<img>");
+  weatherIconEl.attr(
+    "src",
+    `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
+  );
+  let tempEl = $("<p>").text(`Temp: ${Math.round(data.main.temp)} ºC`);
+  let windEl = $("<p>").text(`Wind: ${Math.round(data.wind.speed)} mph`);
   let humidityEl = $("<p>").text(`Temp: ${data.main.humidity}%`);
 
-  forecastSummaryEl.append(tempEl, windEl, humidityEl);
+  forecastSummaryEl.append(weatherIconEl, tempEl, windEl, humidityEl);
 
   /// add let iconEl =
 
-  $("#today").append(
-    `<h2>${locationDetails} (${formatDate})</h2>`,
-    forecastSummaryEl
-  );
+  $("#today").append(`<h2>${locationDetails} (${formatDate})</h2>`);
+  $("#today").append(forecastSummaryEl);
+  //forecastSummaryEl
 };
 
 let successForecastdisplayed;
@@ -391,9 +398,9 @@ const fetchWeatherForecast = (locationDetails) => {
             `https://openweathermap.org/img/wn/${dailyforecast[i][3]}.png`
           );
           let forecastTemp = $("<p>");
-          forecastTemp.text(`Temp: ${dailyforecast[i][0]} ºC`);
+          forecastTemp.text(`Temp: ${Math.round(dailyforecast[i][0])} ºC`);
           let forecastWind = $("<p>");
-          forecastWind.text(`Wind: ${i + 1}: ${dailyforecast[i][1]}kph`);
+          forecastWind.text(`Wind: ${Math.round(dailyforecast[i][1])} mph`);
           let forecastHumidity = $("<p>");
           forecastHumidity.text(`Humidity: ${dailyforecast[i][2]}%`);
           // append these elements into a div:
@@ -512,23 +519,10 @@ searchCity.addEventListener("click", async function (event) {
 
   /** Handle initial mistakes made by the user such as searching with blank input values..... */
 
-  // stop blank form submits
-  if (searchInput.value === "") {
-    alert("Please provide a search city name");
+  if (!/^[A-Za-z\s]+$/.test(searchInput.value)) {
+    alert("Please enter a valid city");
     return;
   }
-  // stop numbers being submitted
-  for (let i = 0; i < searchInput.value.length; i++) {
-    let chars = searchInput.value[i];
-
-    if (!isNaN(chars)) {
-      alert("We can't search for a city with numbers in the name!");
-      searchInput.value = "";
-      return;
-    }
-  }
-  // empty out previous search results - if someone selects search of the same city again. This avoids repeating loop to add the HTML
-
   if (
     $("#today").children().length > 0 &&
     $("#forecast").children().length > 0
