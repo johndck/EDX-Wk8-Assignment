@@ -385,12 +385,17 @@ const fetchWeatherForecast = (locationDetails) => {
         // Create the holding div and make it flex
         let forecastHeadingEl = $("<h1>");
         forecastHeadingEl.text("5 Day Forecast");
-        forecastHeadingEl.addClass("mb-4");
+        forecastHeadingEl.addClass("row");
         forecastHeadingEl.attr("id", "headingForecast");
         let forecastHoldingEl = $("<div>");
+        forecastHoldingEl.addClass("row");
+
+        /*
         forecastHoldingEl.addClass(
           "d-flex flex-row flex-wrap justify-content-evenly gap-1"
         );
+        */
+
         forecastHoldingEl.attr("id", "daysForecast");
 
         for (let i = 0; i < dailyforecast.length; i++) {
@@ -415,7 +420,7 @@ const fetchWeatherForecast = (locationDetails) => {
 
           let dayForecastBlockEL = $("<div>");
           dayForecastBlockEL.addClass(
-            "custom-background rounded forecast-card"
+            "col-2-lg col-6 custom-background rounded forecast-card mb-2 me-2"
           );
           dayForecastBlockEL.addClass("text-white");
           dayForecastBlockEL.append(
