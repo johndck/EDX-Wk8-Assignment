@@ -32,7 +32,7 @@ const fetchWeatherDetails = async (locationDetails) => {
   // Get the weather details
   // Here is the api details page: >> https://openweathermap.org/current
 
-  let queryURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f590&units=metric`;
+  let queryURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latdetails}&lon=${longdetails}&appid=2a7e07fe638ea604b92f79e5f876f591&units=metric`;
 
   const response = await fetch(queryURL);
   const data = await response.json();
